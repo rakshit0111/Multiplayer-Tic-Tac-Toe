@@ -1,4 +1,5 @@
 import  { useState } from 'react'
+import Board from './Board';
 
 function Game({channel}) {
     const [playersJoined,setPlayersJoined] = useState(channel.state.watcher_count === 2)
@@ -14,7 +15,11 @@ function Game({channel}) {
     } 
 
   return (
-    <div>Game</div>
+    <div className='gameContainer'>
+      <Board/>
+      {/* Chat */}
+      {/* Leave game button */}
+    </div>
   )
 }
 
