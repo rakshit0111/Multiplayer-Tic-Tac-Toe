@@ -1,16 +1,30 @@
-import React, { useState } from 'react'
+import  { useEffect, useState } from 'react'
 import Square from './Square';
+import {useChannelStateContext,useChatContext} from "stream-chat-react"
+import {Patterns} from "../WinningPatterns"
 
-function Board() {
-    const [board,setBoard] = useState(["X","","O","","X","","","O",""]);
+function Board({result,setResult}) {
+    const [board,setBoard] = useState(["","","","","","","","",""]);
     const [player,setPlayer] = useState("X");
     const [turn,setTurn] = useState("X");
 
-    const chooseSquare = (square) =>{
+    const {channel} = useChannelStateContext();
+    const {client} = useChatContext();
+
+    useEffect(() =>{
+        checkWin();
+        checkTie();
+    },[board])
+
+    const chooseSquare =async (square) =>{
         if(turn === player && board[square] === "")
         {
             setTurn(player === 'X' ? 'O' : 'X');
 
+            await channel.sendEvent({
+                type: "game-move",
+                data: {square,player},
+            })
             setBoard(board.map((val,idx) =>{
                 if(idx === square && val === "")
                 {
@@ -20,6 +34,59 @@ function Board() {
             }))
         }
     };
+
+    const checkWin = () =>{
+        Patterns.forEach((currPattern) =>{
+            const firstPlayer = board[currPattern[0]];
+
+            if(firstPlayer === "")
+                return;
+
+            let foundWinningPattern = true;
+
+            currPattern.forEach((idx) =>{
+                if(board[idx] !== firstPlayer)
+                    foundWinningPattern = false;
+            });
+
+            if(foundWinningPattern)
+            {
+                alert("Winner :",firstPlayer)
+                setResult({winner : firstPlayer , state :"won"})
+            }
+        });
+    };
+
+    const checkTie = ()=>{
+        let filled = true;
+
+        board.forEach((square)=>{
+            if(square === "")
+                filled = false;
+        });
+
+        if(filled)
+        {
+            alert("TIED")
+            setResult({winner : "none", state :"tie"});
+        }
+    };
+
+    channel.on((event) =>{
+        if(event.type ==="game-move" && event.user.id !== client.userID)
+        {
+            const currentPlayer = event.data.player === "X" ? "O" : "X";
+            setPlayer(currentPlayer);
+            setTurn(currentPlayer);
+            setBoard(board.map((val,idx) =>{
+                if(idx === event.data.square && val === "")
+                {
+                    return event.data.player; 
+                }
+                return val;
+            }))
+        }
+    });
 
   return (
     <div className='board'>
