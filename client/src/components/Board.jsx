@@ -12,8 +12,8 @@ function Board({result,setResult}) {
     const {client} = useChatContext();
 
     useEffect(() =>{
-        checkWin();
         checkTie();
+        checkWin();
     },[board])
 
     const chooseSquare =async (square) =>{
@@ -51,7 +51,6 @@ function Board({result,setResult}) {
 
             if(foundWinningPattern)
             {
-                alert("Winner :",firstPlayer)
                 setResult({winner : firstPlayer , state :"won"})
             }
         });
@@ -67,7 +66,6 @@ function Board({result,setResult}) {
 
         if(filled)
         {
-            alert("TIED")
             setResult({winner : "none", state :"tie"});
         }
     };
