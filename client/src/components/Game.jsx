@@ -24,7 +24,7 @@ function Game({channel,setChannel}) {
         <MessageList disableDateSeparator closeReactionSelectorOnClick messageActions={["react"]} hideDeletedMessages/>
         <MessageInput noFiles/>
       </Window>
-      <button onClick={async () =>{
+      <button  onClick={async () =>{
         await channel.stopWatching();
         setChannel(null);
       }}>Leave</button>

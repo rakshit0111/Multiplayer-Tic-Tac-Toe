@@ -1,15 +1,17 @@
 :root {
-  --primary-color: #3a86ff;
-  --secondary-color: #ffffff;
-  --accent-color: #ff006e;
-  --background-color: #f0f4f8;
-  --text-color: #2b2d42;
-  --border-color: #8d99ae;
-  --input-bg: #ffffff;
-  --button-hover: #ff5e8f;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --primary-color: #0077b6; /* Deep Sky Blue for primary actions */
+  --secondary-color: #f7f9fc; /* Soft Cool White for secondary elements */
+  --accent-color: #f25f5c; /* Coral Red for accents and highlights */
+  --background-color: #e8f0f8; /* Light Sky Blue for a serene background */
+  --text-color: #1d3557; /* Dark Navy Blue for strong text contrast */
+  --border-color: #adb5bd; /* Muted Gray for subtle borders */
+  --input-bg: #ffffff; /* Crisp White for input fields */
+  --button-hover: #023e8a; /* Darker Sky Blue for hover effects */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.12); /* Softer small shadow */
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15); /* Medium shadow for depth */
 }
+
+
 
 * {
   box-sizing: border-box;
