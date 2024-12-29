@@ -8,7 +8,7 @@ function Login({ setIsAuth }) {
 
   const cookies = new Cookies();
   const login = () => {
-    Axios.post("http://localhost:3001/login", {
+    Axios.post("https://multiplayer-tic-tac-toe-omega.vercel.app/login", {
       username,
       password,
     }).then((res) => {
